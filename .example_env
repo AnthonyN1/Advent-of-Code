@@ -1,0 +1,11 @@
+# This is an example environment file. Name the real one ".env".
+# This file should only have one environment variable: the session cookie.
+
+# Here's how to find your session cookie value (Google Chrome):
+# - Log in to https://adventofcode.com/.
+# - Open the developer console (right click; Inspect).
+# - Click on the "Application" tab, and look for the "Storage" label on the side-bar.
+# - Under "Storage", click the drop-down arrow for "Cookies".
+# - Click on the only cookie tab shown. In the table, copy the string in the "value" column. This is your session cookie.
+
+session=<session cookie from https://adventofcode.com/>
