@@ -22,6 +22,7 @@
 std::vector<std::string> parseInputPartOne(const std::vector<std::string> &input){
 	std::vector<std::string> parsedInput;
 
+	// Extracts only the digits in the strings.
 	std::transform(input.cbegin(), input.cend(), std::back_inserter(parsedInput), [](const auto &str){
 		std::string digits = "";
 		std::copy_if(str.begin(), str.end(), std::back_inserter(digits), [](auto ch){ return isdigit(ch); });
@@ -49,11 +50,13 @@ std::vector<std::string> parseInputPartTwo(const std::vector<std::string> &input
 	};
 
 	std::transform(input.cbegin(), input.cend(), std::back_inserter(parsedInput), [&mappings](const auto &str){
+		// Converts the spelled out digits into numerical digits.
 		std::string spelledOut = str;
 		std::for_each(mappings.cbegin(), mappings.cend(), [&spelledOut](const auto &pair){
 			spelledOut = std::regex_replace(spelledOut, std::regex(pair.first), pair.second);
 		});
 
+		// Extracts only the digits in the strings.
 		std::string digits = "";
 		std::copy_if(spelledOut.begin(), spelledOut.end(), std::back_inserter(digits), [](auto ch){ return isdigit(ch); });
 
