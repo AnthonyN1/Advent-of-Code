@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <numeric>
 #include <regex>
 #include <string>
 #include <unordered_map>
@@ -73,9 +74,8 @@ std::vector<std::string> parseInputPartTwo(const std::vector<std::string> &input
  * @return the sum of the strings using only the first and last digits of each string.
 */
 unsigned long long sumFirstAndLast(const std::vector<std::string> &nums){
-	unsigned long long sum = 0;
-	std::for_each(nums.cbegin(), nums.cend(), [&sum](const auto &digits){
-		sum += (digits[0] - '0') * 10 + (digits[digits.size() - 1] - '0');
+	unsigned long long sum = std::accumulate(nums.cbegin(), nums.cend(), 0, [](auto val, const auto &digits){
+		return val + ((digits[0] - '0') * 10 + (digits[digits.size() - 1] - '0'));
 	});
 
 	return sum;
