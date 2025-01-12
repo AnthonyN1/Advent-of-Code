@@ -1,0 +1,17 @@
+#ifndef YEAR@YEAR@_DAY@DAY_FILENAME@_H
+#define YEAR@YEAR@_DAY@DAY_FILENAME@_H
+
+#include "../../day_solver.h"
+
+namespace adventofcode {
+    class Year@YEAR@Day@DAY_FILENAME@ final : public DaySolver {
+    public:
+        Year@YEAR@Day@DAY_FILENAME@();
+        ~Year@YEAR@Day@DAY_FILENAME@() override = default;
+
+        ResultType solvePart1() override;
+        ResultType solvePart2() override;
+    };
+}
+
+#endif

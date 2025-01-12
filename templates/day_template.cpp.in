@@ -1,0 +1,13 @@
+#include "year@YEAR@_day@DAY_FILENAME@.h"
+
+namespace adventofcode {
+    Year@YEAR@Day@DAY_FILENAME@::Year@YEAR@Day@DAY_FILENAME@() : DaySolver(@YEAR@, @DAY@) {}
+
+    ResultType Year@YEAR@Day@DAY_FILENAME@::solvePart1() {
+        return 0;
+    }
+
+    ResultType Year@YEAR@Day@DAY_FILENAME@::solvePart2() {
+        return 0;
+    }
+}
