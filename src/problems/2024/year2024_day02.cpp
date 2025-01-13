@@ -6,9 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "../../aoc_utils/aoc_utils.h"
 #include "year2024_day02.h"
-
-#include <iostream>
 
 namespace {
     std::vector<std::vector<long>> transformInput(const std::string &input) {
@@ -36,12 +35,13 @@ namespace {
         std::adjacent_difference(report.cbegin(), report.cend(), differences.begin());
         differences.pop_front();
 
-        auto is_positive = std::ranges::all_of(differences, [](long diff) { return diff > 0; });
-        auto is_negative = std::ranges::all_of(differences, [](long diff) { return diff < 0; });
-        auto is_in_bounds =
-            std::ranges::all_of(differences, [](long diff) { return std::abs(diff) >= 1 && std::abs(diff) <= 3; });
+        auto first_num_sgn = adventofcode::aocutils::sgn(differences.front());
+        auto check = [&](long diff) {
+            auto num_sgn = adventofcode::aocutils::sgn(diff);
+            return (first_num_sgn == num_sgn) && (std::abs(diff) >= 1) && (std::abs(diff) <= 3);
+        };
 
-        return (is_positive || is_negative) && is_in_bounds;
+        return std::ranges::all_of(differences, check);
     }
 
     size_t countSafeReports(const std::vector<std::vector<long>> &reports) {
