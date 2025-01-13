@@ -2,12 +2,13 @@
 BasedOnStyle: LLVM
 AccessModifierOffset: '-4'
 AlignEscapedNewlines: Left
+AllowShortCaseLabelsOnASingleLine: 'true'
 ColumnLimit: '120'
 Cpp11BracedListStyle: 'true'
 FixNamespaceComments: 'false'
+IndentCaseLabels: 'true'
 IndentWidth: '4'
 NamespaceIndentation: All
-SpaceBeforeCpp11BracedList: 'true'
 TabWidth: '4'
 
 ...

@@ -1,2 +1,6 @@
 .session
+.vs/*
+build/*
+CMakeSettings.json
 inputs/*
+src/inputs.h
