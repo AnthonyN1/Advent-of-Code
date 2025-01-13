@@ -16,7 +16,7 @@ namespace adventofcode {
     inline std::unique_ptr<DaySolver> createSolver(int yearday) {
         switch (yearday) {
             case 202401: return std::make_unique<Year2024Day01>();
-case 202402: return std::make_unique<Year2024Day02>();
+            case 202402: return std::make_unique<Year2024Day02>();
 
             default: return nullptr;
         }

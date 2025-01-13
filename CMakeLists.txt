@@ -61,7 +61,7 @@ foreach(DAY_SOLVER ${DAY_SOLVERS})
     set(DAY ${CMAKE_MATCH_2})
 
     string(APPEND INCLUDES "#include \"../problems/${YEAR}/${FILENAME}.h\"\n")
-    string(APPEND CASES "case ${YEAR}${DAY}: return std::make_unique<Year${YEAR}Day${DAY}>();\n")
+    string(APPEND CASES "            case ${YEAR}${DAY}: return std::make_unique<Year${YEAR}Day${DAY}>();\n")
     string(APPEND AVAILABLE_DAYS "${YEAR}${DAY}, ")
 endforeach()
 

@@ -13,7 +13,7 @@ namespace adventofcode {
 
     inline std::unique_ptr<DaySolver> createSolver(int yearday) {
         switch (yearday) {
-            @CASES@
+@CASES@
             default: return nullptr;
         }
     }
