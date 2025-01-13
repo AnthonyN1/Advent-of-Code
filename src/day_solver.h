@@ -15,7 +15,7 @@ namespace adventofcode {
 
     struct DayResult {
         ResultType result;
-        long duration = 0;
+        long long duration = 0;
     };
 
     class DaySolver {

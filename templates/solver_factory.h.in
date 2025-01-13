@@ -1,0 +1,22 @@
+#ifndef SOLVER_FACTORY_H
+#define SOLVER_FACTORY_H
+
+#include <array>
+#include <memory>
+
+#include "../day_solver.h"
+@INCLUDES@
+namespace adventofcode {
+    inline constexpr std::array<int, @NB_DAYS@> available_days = {
+        @AVAILABLE_DAYS@
+    };
+
+    inline std::unique_ptr<DaySolver> createSolver(int yearday) {
+        switch (yearday) {
+            @CASES@
+            default: return nullptr;
+        }
+    }
+}
+
+#endif

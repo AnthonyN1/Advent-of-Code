@@ -5,8 +5,8 @@
 #include <string_view>
 
 namespace adventofcode {
-	inline constexpr std::array<std::array<std::string_view, 25>, 10> inputs = {
-		@INPUTS_CONTENT@};
+	inline constexpr std::array<std::array<std::string_view, 25>, 10> inputs = {{
+		@INPUTS_CONTENT@}};
 }
 
 #endif
