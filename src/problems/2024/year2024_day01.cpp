@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "../../aoc_utils/aoc_utils.h"
 #include "year2024_day01.h"
 
 namespace {
@@ -37,14 +38,6 @@ namespace {
         return std::transform_reduce(idxs.cbegin(), idxs.cend(), 0L, std::plus{}, calc_distance);
     }
 
-    std::unordered_map<long, size_t> createFrequencyMap(const std::vector<long> &elems) {
-        std::unordered_map<long, size_t> freqs;
-        for (auto elem : elems) {
-            ++freqs[elem];
-        }
-        return freqs;
-    }
-
     long calcTotalSimilarityScore(const std::vector<long> &left, const std::unordered_map<long, size_t> &freqs) {
         auto calc_similarity_score = [&](long elem) { return freqs.contains(elem) ? elem * freqs.at(elem) : 0L; };
 
@@ -65,7 +58,7 @@ namespace adventofcode {
 
     ResultType Year2024Day01::solvePart2() {
         auto [left, right] = transformInput(input_data);
-        auto freqs = createFrequencyMap(right);
+        auto freqs = aocutils::createFrequencyMap(right);
         auto total_score = calcTotalSimilarityScore(left, freqs);
 
         return total_score;
