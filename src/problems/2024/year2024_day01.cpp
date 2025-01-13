@@ -31,7 +31,7 @@ namespace {
     }
 
     long calcTotalDistance(const std::vector<long> &left, const std::vector<long> &right) {
-        auto calc_distance = [&](auto i) { return std::abs(left[i] - right[i]); };
+        auto calc_distance = [&](int i) { return std::abs(left[i] - right[i]); };
 
         auto idxs = std::views::iota(0, std::ssize(left));
         return std::transform_reduce(idxs.cbegin(), idxs.cend(), 0L, std::plus{}, calc_distance);
