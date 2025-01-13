@@ -3,8 +3,9 @@
 
 #include <chrono>
 #include <cstddef>
+#include <fstream>
+#include <iterator>
 #include <string>
-#include <string_view>
 #include <variant>
 
 #include "inputs.h"
@@ -21,7 +22,10 @@ namespace adventofcode {
     class DaySolver {
     public:
         DaySolver() = delete;
-        explicit DaySolver(size_t inYear, size_t inDay) : input_data(inputs[inYear - 2015][inDay - 1]) {}
+        explicit DaySolver(size_t inYear, size_t inDay)
+            : input_data{
+                  std::istreambuf_iterator<char>(std::ifstream(std::string(inputs[inYear - 2015][inDay - 1])).rdbuf()),
+                  std::istreambuf_iterator<char>()} {}
         virtual ~DaySolver() = default;
 
         virtual ResultType solvePart1() = 0;
@@ -35,7 +39,7 @@ namespace adventofcode {
         }
 
     protected:
-        std::string_view input_data;
+        std::string input_data;
     };
 }
 

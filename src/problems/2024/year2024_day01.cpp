@@ -5,7 +5,6 @@
 #include <ranges>
 #include <sstream>
 #include <string>
-#include <string_view>
 #include <tuple>
 #include <unordered_map>
 #include <vector>
@@ -13,10 +12,10 @@
 #include "year2024_day01.h"
 
 namespace {
-    std::tuple<std::vector<long>, std::vector<long>> transformInput(std::string_view input) {
+    std::tuple<std::vector<long>, std::vector<long>> transformInput(const std::string &input) {
         std::vector<long> left, right;
 
-        std::istringstream ss{std::string(input)};
+        std::istringstream ss{input};
         long curr_left, curr_right;
         while (ss >> curr_left >> curr_right) {
             left.push_back(curr_left);

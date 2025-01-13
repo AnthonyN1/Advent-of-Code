@@ -15,7 +15,7 @@ else()
     set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 endif()
 
-# Handles inputs as string_view objects and automatically generates an inputs.h file.
+# Handles inputs as filenames and automatically generates an inputs.h file.
 set(INPUTS_CONTENT "")
 
 # Iterates through each Advent of Code year.
@@ -30,15 +30,11 @@ foreach(YEAR_NUMBER RANGE 2015 2024)
             set(DAY_FILENAME "0${DAY_NUMBER}")
         endif()
 
-        if(EXISTS "${CMAKE_SOURCE_DIR}/inputs/${YEAR_NUMBER}/year${YEAR_NUMBER}_day${DAY_FILENAME}.txt")
-            file(READ "${CMAKE_SOURCE_DIR}/inputs/${YEAR_NUMBER}/year${YEAR_NUMBER}_day${DAY_FILENAME}.txt" INPUT_CONTENT)
-
-            # Removes the line break at the end of the file.
-            string(REGEX REPLACE "\n$" "" TRIMMED_INPUT_CONTENT "${INPUT_CONTENT}")
-            string(APPEND INPUTS_CONTENT "R\"(${TRIMMED_INPUT_CONTENT})\",\n")
-        else()
-            string(APPEND INPUTS_CONTENT "R\"()\",\n")
+        set(FILENAME "${CMAKE_SOURCE_DIR}/inputs/${YEAR_NUMBER}/year${YEAR_NUMBER}_day${DAY_FILENAME}.txt")
+        if(NOT EXISTS ${FILENAME})
+            set(FILENAME "")
         endif()
+        string(APPEND INPUTS_CONTENT "\"${FILENAME}\",\n")
     endforeach()
 
     string(APPEND INPUTS_CONTENT "},\n")
