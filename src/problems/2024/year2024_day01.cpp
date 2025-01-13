@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <cstdlib>
+#include <cmath>
 #include <functional>
 #include <numeric>
 #include <ranges>
