@@ -32,10 +32,10 @@ namespace {
     }
 
     long calcTotalDistance(const std::vector<long> &left, const std::vector<long> &right) {
-        auto calcDistance = [&](auto i) { return std::abs(left[i] - right[i]); };
+        auto calc_distance = [&](auto i) { return std::abs(left[i] - right[i]); };
 
         auto idxs = std::views::iota(0, std::ssize(left));
-        return std::transform_reduce(idxs.cbegin(), idxs.cend(), 0L, std::plus{}, calcDistance);
+        return std::transform_reduce(idxs.cbegin(), idxs.cend(), 0L, std::plus{}, calc_distance);
     }
 
     std::unordered_map<long, size_t> createFrequencyMap(const std::vector<long> &elems) {
@@ -47,9 +47,9 @@ namespace {
     }
 
     long calcTotalSimilarityScore(const std::vector<long> &left, const std::unordered_map<long, size_t> &freqs) {
-        auto calcSimilarityScore = [&](long elem) { return freqs.contains(elem) ? elem * freqs.at(elem) : 0L; };
+        auto calc_similarity_score = [&](long elem) { return freqs.contains(elem) ? elem * freqs.at(elem) : 0L; };
 
-        return std::transform_reduce(left.cbegin(), left.cend(), 0L, std::plus{}, calcSimilarityScore);
+        return std::transform_reduce(left.cbegin(), left.cend(), 0L, std::plus{}, calc_similarity_score);
     }
 }
 
@@ -59,16 +59,16 @@ namespace adventofcode {
     ResultType Year2024Day01::solvePart1() {
         auto [left, right] = transformInput(input_data);
         sortLists(left, right);
-        auto totalDistance = calcTotalDistance(left, right);
+        auto total_distance = calcTotalDistance(left, right);
 
-        return totalDistance;
+        return total_distance;
     }
 
     ResultType Year2024Day01::solvePart2() {
         auto [left, right] = transformInput(input_data);
         auto freqs = createFrequencyMap(right);
-        auto totalScore = calcTotalSimilarityScore(left, freqs);
+        auto total_score = calcTotalSimilarityScore(left, freqs);
 
-        return totalScore;
+        return total_score;
     }
 }
