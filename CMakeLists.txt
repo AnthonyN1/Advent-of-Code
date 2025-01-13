@@ -71,13 +71,16 @@ configure_file(
     @ONLY
 )
 
+# Gets all source code and input files.
+file(GLOB_RECURSE PROBLEMS "${CMAKE_SOURCE_DIR}/src/problems/*")
+file(GLOB_RECURSE INPUTS "${CMAKE_SOURCE_DIR}/inputs")
+
 # Watches for changes in inputs and problems to reconfigure automatically at build-time.
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/inputs)
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/problems)
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${PROBLEMS})
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${INPUTS})
 
 # Creates a library containing all the problems.
 set(PROBLEMS_LIB problems)
-file(GLOB_RECURSE PROBLEMS "${CMAKE_SOURCE_DIR}/src/problems/*")
 add_library(${PROBLEMS_LIB} STATIC ${PROBLEMS})
 set_target_properties(${PROBLEMS_LIB} PROPERTIES LINKER_LANGUAGE CXX)
 
