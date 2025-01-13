@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <numeric>
+#include <ranges>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -30,12 +32,10 @@ namespace {
     }
 
     long calcTotalDistance(const std::vector<long> &left, const std::vector<long> &right) {
-        std::vector<long> distances(left.size());
-        std::transform(left.cbegin(), left.cend(), right.cbegin(), distances.begin(),
-                       [](long n1, long n2) { return std::abs(n1 - n2); });
-        auto total = std::accumulate(distances.cbegin(), distances.cend(), 0L);
+        auto calcDistance = [&](auto i) { return std::abs(left[i] - right[i]); };
 
-        return total;
+        auto idxs = std::views::iota(0, std::ssize(left));
+        return std::transform_reduce(idxs.cbegin(), idxs.cend(), 0L, std::plus{}, calcDistance);
     }
 
     std::unordered_map<long, size_t> createFrequencyMap(const std::vector<long> &elems) {
@@ -47,17 +47,9 @@ namespace {
     }
 
     long calcTotalSimilarityScore(const std::vector<long> &left, const std::unordered_map<long, size_t> &freqs) {
-        auto addSimilarityScore = [&](long running, long elem) {
-            auto score = running;
-            if (freqs.contains(elem)) {
-                score += elem * freqs.at(elem);
-            }
-            return score;
-        };
+        auto calcSimilarityScore = [&](long elem) { return freqs.contains(elem) ? elem * freqs.at(elem) : 0L; };
 
-        auto total = std::accumulate(left.cbegin(), left.cend(), 0L, addSimilarityScore);
-
-        return total;
+        return std::transform_reduce(left.cbegin(), left.cend(), 0L, std::plus{}, calcSimilarityScore);
     }
 }
 
