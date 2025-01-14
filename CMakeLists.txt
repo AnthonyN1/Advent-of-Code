@@ -73,19 +73,20 @@ configure_file(
 
 # Gets all source code and input files.
 file(GLOB_RECURSE PROBLEMS "${CMAKE_SOURCE_DIR}/src/problems/*")
+file(GLOB UTILITIES "${CMAKE_SOURCE_DIR}/src/aoc_utils/*")
 file(GLOB_RECURSE INPUTS "${CMAKE_SOURCE_DIR}/inputs")
 
 # Watches for changes in inputs and problems to reconfigure automatically at build-time.
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${PROBLEMS})
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${INPUTS})
 
-# Creates a library containing all the problems.
-set(PROBLEMS_LIB problems)
-add_library(${PROBLEMS_LIB} STATIC ${PROBLEMS})
-set_target_properties(${PROBLEMS_LIB} PROPERTIES LINKER_LANGUAGE CXX)
+# Creates a library containing all the problems and utilities.
+set(SOURCE_LIB problems)
+add_library(${SOURCE_LIB} STATIC ${UTILITIES} ${PROBLEMS})
+set_target_properties(${SOURCE_LIB} PROPERTIES LINKER_LANGUAGE CXX)
 
 # Generates the final executable.
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${PROBLEMS_LIB})
+target_link_libraries(${PROJECT_NAME} ${SOURCE_LIB})
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
