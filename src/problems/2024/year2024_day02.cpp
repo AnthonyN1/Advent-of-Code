@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
 #include <list>
 #include <numeric>
 #include <ranges>
