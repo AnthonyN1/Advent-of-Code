@@ -11,9 +11,9 @@
 #include "year2024_day03.h"
 
 namespace {
-    std::vector<std::string> findInstructions(const std::string &instructions, const char *pattern) {
-        std::regex pattern_regex(pattern);
-        auto begin = std::sregex_iterator(instructions.cbegin(), instructions.cend(), pattern_regex);
+    std::vector<std::string> findUncorruptedInstructions(const std::string &instructions) {
+        std::regex pattern(R"(mul\(\d{1,3},\d{1,3}\))");
+        auto begin = std::sregex_iterator(instructions.cbegin(), instructions.cend(), pattern);
         auto end = std::sregex_iterator();
 
         auto match_to_str = [](const std::smatch &match) { return match.str(); };
@@ -22,20 +22,6 @@ namespace {
         std::ranges::transform(std::ranges::subrange(begin, end), std::back_inserter(uncorrupted), match_to_str);
 
         return uncorrupted;
-    }
-
-    std::vector<std::string> findUncorruptedInstructions(const std::string &instructions) {
-        return findInstructions(instructions, R"(mul\(\d{1,3},\d{1,3}\))");
-    }
-
-    std::vector<std::string> findEnabledUncorruptedInstructions(const std::string &instructions) {
-        std::regex pattern_n(R"(\n)");
-        std::string instructions_new = std::regex_replace(instructions, pattern_n, "");
-
-        std::regex pattern(R"(don't\(\).*?(?:do\(\)|$))");
-        std::string enabled_instructions = std::regex_replace(instructions_new, pattern, "");
-
-        return findInstructions(enabled_instructions, R"(mul\(\d{1,3},\d{1,3}\))");
     }
 
     long sumInstructions(const std::vector<std::string> &instructions) {
@@ -50,6 +36,14 @@ namespace {
 
         return std::transform_reduce(instructions.cbegin(), instructions.cend(), 0L, std::plus{}, parse_mul);
     }
+
+    std::string removeDisabledInstructions(const std::string &instructions) {
+        std::regex pattern_newline(R"(\n)");
+        std::string instructions_oneline = std::regex_replace(instructions, pattern_newline, "");
+
+        std::regex pattern_disabled(R"(don't\(\).*?(?:do\(\)|$))");
+        return std::regex_replace(instructions_oneline, pattern_disabled, "");
+    }
 }
 
 namespace adventofcode {
@@ -63,7 +57,8 @@ namespace adventofcode {
     }
 
     ResultType Year2024Day03::solvePart2() {
-        auto instructions = findEnabledUncorruptedInstructions(input_data);
+        auto enabled_instructions = removeDisabledInstructions(input_data);
+        auto instructions = findUncorruptedInstructions(enabled_instructions);
         auto total = sumInstructions(instructions);
 
         return total;
