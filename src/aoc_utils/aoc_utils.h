@@ -7,6 +7,10 @@
 namespace aocutils {
     template <class T> using Vec2D = std::vector<std::vector<T>>;
 
+    template <class T> bool areIndicesInBounds(const Vec2D<T>& vec, int r, int c) {
+        return (r >= 0) && (r < static_cast<int>(vec.size())) && (c >= 0) && (c < static_cast<int>(vec[r].size()));
+    }
+
     template <class Container>
     std::unordered_map<typename Container::value_type, size_t> createFrequencyMap(const Container &elems) {
         std::unordered_map<typename Container::value_type, size_t> freqs;
