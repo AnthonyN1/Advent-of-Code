@@ -2,8 +2,11 @@
 #define AOC_UTILS_H
 
 #include <unordered_map>
+#include <vector>
 
 namespace aocutils {
+    template <class T> using Vec2D = std::vector<std::vector<T>>;
+
     template <class Container>
     std::unordered_map<typename Container::value_type, size_t> createFrequencyMap(const Container &elems) {
         std::unordered_map<typename Container::value_type, size_t> freqs;

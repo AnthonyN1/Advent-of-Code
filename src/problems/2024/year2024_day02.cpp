@@ -12,8 +12,8 @@
 #include "year2024_day02.h"
 
 namespace {
-    std::vector<std::vector<long>> transformInput(const std::string &input) {
-        std::vector<std::vector<long>> reports;
+    aocutils::Vec2D<long> transformInput(const std::string &input) {
+        aocutils::Vec2D<long> reports;
 
         std::istringstream ss{input};
         std::string line;
@@ -46,11 +46,11 @@ namespace {
         return std::ranges::all_of(differences, check);
     }
 
-    size_t countSafeReports(const std::vector<std::vector<long>> &reports) {
+    size_t countSafeReports(const aocutils::Vec2D<long> &reports) {
         return std::ranges::count_if(reports, isSafe);
     }
 
-    size_t countSafeReportsWithTolerance(const std::vector<std::vector<long>> &reports) {
+    size_t countSafeReportsWithTolerance(const aocutils::Vec2D<long> &reports) {
         auto is_safe_with_tol = [](const std::vector<long> &report) {
             std::vector<long> removed_level;
             removed_level.reserve(report.size() - 1);
