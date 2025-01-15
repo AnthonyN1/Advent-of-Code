@@ -1,13 +1,16 @@
 #ifndef AOC_UTILS_H
 #define AOC_UTILS_H
 
+#include <cstddef>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace aocutils {
     template <class T> using Vec2D = std::vector<std::vector<T>>;
 
-    template <class T> bool areIndicesInBounds(const Vec2D<T>& vec, int r, int c) {
+    template <class T> bool areIndicesInBounds(const Vec2D<T>& vec, const std::pair<int, int> &idxs) {
+        auto [r, c] = idxs;
         return (r >= 0) && (r < static_cast<int>(vec.size())) && (c >= 0) && (c < static_cast<int>(vec[r].size()));
     }
 
