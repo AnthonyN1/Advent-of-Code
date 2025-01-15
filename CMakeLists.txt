@@ -47,7 +47,7 @@ configure_file(
 )
 
 # Appends day solvers to the factory.
-file(GLOB_RECURSE DAY_SOLVERS "${CMAKE_SOURCE_DIR}/src/problems/*/year*_day*.h")
+file(GLOB_RECURSE DAY_SOLVERS CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/problems/*/year*_day*.h")
 list(LENGTH DAY_SOLVERS NB_DAYS)
 set(CASES "")
 set(INCLUDES "")
@@ -60,7 +60,7 @@ foreach(DAY_SOLVER ${DAY_SOLVERS})
     set(YEAR ${CMAKE_MATCH_1})
     set(DAY ${CMAKE_MATCH_2})
 
-    string(APPEND INCLUDES "#include \"../problems/${YEAR}/${FILENAME}.h\"\n")
+    string(APPEND INCLUDES "#include \"problems/${YEAR}/${FILENAME}.h\"\n")
     string(APPEND CASES "            case ${YEAR}${DAY}: return std::make_unique<Year${YEAR}Day${DAY}>();\n")
     string(APPEND AVAILABLE_DAYS "${YEAR}${DAY}, ")
 endforeach()
@@ -71,22 +71,20 @@ configure_file(
     @ONLY
 )
 
-# Gets all source code and input files.
-file(GLOB_RECURSE PROBLEMS "${CMAKE_SOURCE_DIR}/src/problems/*")
-file(GLOB UTILITIES "${CMAKE_SOURCE_DIR}/src/aoc_utils/*")
-file(GLOB_RECURSE INPUTS "${CMAKE_SOURCE_DIR}/inputs")
+# Creates a library containing all the problems.
+file(GLOB_RECURSE PROBLEM_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/problems/*/*.cpp")
+set(PROBLEMS_LIB problems)
+add_library(${PROBLEMS_LIB} STATIC ${PROBLEM_FILES})
+target_include_directories(${PROBLEMS_LIB} PRIVATE "${CMAKE_SOURCE_DIR}/src")
+set_target_properties(${PROBLEMS_LIB} PROPERTIES LINKER_LANGUAGE CXX)
 
-# Watches for changes in inputs and problems to reconfigure automatically at build-time.
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${PROBLEMS})
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${INPUTS})
-
-# Creates a library containing all the problems and utilities.
-set(SOURCE_LIB problems)
-add_library(${SOURCE_LIB} STATIC ${UTILITIES} ${PROBLEMS})
-set_target_properties(${SOURCE_LIB} PROPERTIES LINKER_LANGUAGE CXX)
+# Creates a library containing all the utilities.
+file(GLOB UTILITY_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/aoc_utils/*.cpp")
+set(UTILS_LIB utilities)
+add_library(${UTILS_LIB} STATIC ${UTILITY_FILES})
+set_target_properties(${UTILS_LIB} PROPERTIES LINKER_LANGUAGE CXX)
 
 # Generates the final executable.
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${SOURCE_LIB})
-
-target_include_directories(${PROJECT_NAME} PRIVATE src)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROBLEMS_LIB} ${UTILS_LIB})
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/src")

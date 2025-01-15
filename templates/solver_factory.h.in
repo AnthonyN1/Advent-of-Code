@@ -4,7 +4,7 @@
 #include <array>
 #include <memory>
 
-#include "../day_solver.h"
+#include "day_solver.h"
 @INCLUDES@
 namespace adventofcode {
     inline constexpr std::array<int, @NB_DAYS@> available_days = {

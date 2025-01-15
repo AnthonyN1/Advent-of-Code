@@ -1,7 +1,7 @@
 #ifndef YEAR2024_DAY01_H
 #define YEAR2024_DAY01_H
 
-#include "../../day_solver.h"
+#include "day_solver.h"
 
 namespace adventofcode {
     class Year2024Day01 final : public DaySolver {

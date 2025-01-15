@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../../aoc_utils/aoc_utils.h"
+#include "aoc_utils/aoc_utils.h"
 #include "year@YEAR@_day@DAY_FILENAME@.h"
 
 namespace {

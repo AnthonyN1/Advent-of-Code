@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-namespace adventofcode::aocutils {
+namespace aocutils {
     template <class Container>
     std::unordered_map<typename Container::value_type, size_t> createFrequencyMap(const Container &elems) {
         std::unordered_map<typename Container::value_type, size_t> freqs;

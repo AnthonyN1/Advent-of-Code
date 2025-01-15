@@ -4,10 +4,10 @@
 #include <array>
 #include <memory>
 
-#include "../day_solver.h"
-#include "../problems/2024/year2024_day01.h"
-#include "../problems/2024/year2024_day02.h"
-#include "../problems/2024/year2024_day03.h"
+#include "day_solver.h"
+#include "problems/2024/year2024_day01.h"
+#include "problems/2024/year2024_day02.h"
+#include "problems/2024/year2024_day03.h"
 
 namespace adventofcode {
     inline constexpr std::array<int, 3> available_days = {

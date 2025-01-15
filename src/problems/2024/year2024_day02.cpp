@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "../../aoc_utils/aoc_utils.h"
+#include "aoc_utils/aoc_utils.h"
 #include "year2024_day02.h"
 
 namespace {
@@ -37,9 +37,9 @@ namespace {
         std::adjacent_difference(report.cbegin(), report.cend(), differences.begin());
         differences.pop_front();
 
-        auto first_num_sgn = adventofcode::aocutils::sgn(differences.front());
+        auto first_num_sgn = aocutils::sgn(differences.front());
         auto check = [&](long diff) {
-            auto num_sgn = adventofcode::aocutils::sgn(diff);
+            auto num_sgn = aocutils::sgn(diff);
             return (first_num_sgn == num_sgn) && (std::abs(diff) >= 1) && (std::abs(diff) <= 3);
         };
 

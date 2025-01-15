@@ -1,7 +1,7 @@
 #ifndef YEAR@YEAR@_DAY@DAY_FILENAME@_H
 #define YEAR@YEAR@_DAY@DAY_FILENAME@_H
 
-#include "../../day_solver.h"
+#include "day_solver.h"
 
 namespace adventofcode {
     class Year@YEAR@Day@DAY_FILENAME@ final : public DaySolver {

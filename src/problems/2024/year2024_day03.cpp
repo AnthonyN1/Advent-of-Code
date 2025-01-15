@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "../../aoc_utils/aoc_utils.h"
+#include "aoc_utils/aoc_utils.h"
 #include "year2024_day03.h"
 
 namespace {

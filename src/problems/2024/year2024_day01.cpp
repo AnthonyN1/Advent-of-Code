@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../../aoc_utils/aoc_utils.h"
+#include "aoc_utils/aoc_utils.h"
 #include "year2024_day01.h"
 
 namespace {
